@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Homepage</title>
+
+  <!-- Favicon -->
+<link rel="icon" type="image/svg+xml" 
+href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEdlb21ldHJpY1ByZWNpc2lvbiI+CiAgPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSJub25lIi8+CiAgPCEtLSBSb29mIC0tPgogIDxyZWN0IHg9IjMiIHk9IjQiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxIiBmaWxsPSIjODc0NTIwIi8+CiAgPHJlY3QgeD0iNCIgeT0iNSIgd2lkdGg9IjgiIGhlaWdodD0iMSIgZmlsbD0iIzg3NDUyMCIvPgogIDxyZWN0IHg9IjUiIHk9IjYiIHdpZHRoPSI2IiBoZWlnaHQ9IjEiIGZpbGw9IiM4NzQ1MjAiLz4KCiAgPCEtLSBIb3VzZSBCb2R5IC0tPgogIDxyZWN0IHg9IjQiIHk9IjciIHdpZHRoPSI4IiBoZWlnaHQ9IjciIGZpbGw9IiNmYTAwMDAiLz4KCiAgPCEtLSBEb29yIC0tPgogIDxyZWN0IHg9IjciIHk9IjEwIiB3aWR0aD0iMiIgaGVpZ2h0PSI0IiBmaWxsPSIjNTAyODE0Ii8+Cjwvc3ZnPg==">
+
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #181818;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 40px;
+    }
+
+    /* Search bar */
+    #search input {
+      width: 50%;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: #2a2a2a;
+      color: white;
+    }
+
+    /* Section headers */
+    h2 {
+      margin-top: 40px;
+      color: #e0e0e0;
+      font-weight: 400;
+    }
+
+    /* Weather */
+    #weather {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    /* YouTube container */
+    #yt-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 40px auto;
+    }
+
+    /* YouTube cards */
+    .yt-card {
+      background: #222;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: transform 0.2s;
+    }
+    .yt-card:hover {
+      transform: translateY(-4px);
+    }
+    .yt-thumb {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .yt-info {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .yt-channel-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SEARCH BAR (DuckDuckGo) -->
+  <div id="search">
+    <form action="https://duckduckgo.com/">
+      <input name="q" placeholder="Search DuckDuckGo..." autofocus>
+    </form>
+  </div>
+
+  <!-- WEATHER -->
+  <h2>Weather</h2>
+  <div id="weather">Loading weather...</div>
+
+  <!-- YOUTUBE -->
+  <h2>Latest Videos</h2>
+  <div id="yt-container">Loading…</div>
+
+<script>
+/* ============================
+   WEATHER WIDGET
+   ============================ */
+async function loadWeather() {
+  try {
+    const lat = 40.7128;
+    const lon = -74.0060;
+
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const temp = data.current_weather.temperature;
+    const wind = data.current_weather.windspeed;
+
+    document.getElementById("weather").innerHTML =
+      `Temperature: ${temp}°C<br>Wind: ${wind} km/h`;
+
+  } catch (err) {
+    document.getElementById("weather").innerHTML = "Couldn't load weather.";
+  }
+}
+
+loadWeather();
+
+/* ============================
+   YOUTUBE FEEDS
+   ============================ */
+
+const channels = [
+  "UCETZ7OiW7-wqwb-6hsz3C4w", // Bionic
+  "@BringusStudios",          // Bringus Studios
+  "@donibobes",               // Doni Bobes
+  "@Tranium",                 // Tranium
+  "UCdtkRG9NQBBwtzhd1ljUA0A", // ELEVENZ
+  "UCyUFqqpJskoLfILYzyeIkWA"  // MetraByte
+];
+
+async function loadFeeds() {
+  const container = document.getElementById("yt-container");
+  container.innerHTML = "";
+
+  for (const id of channels) {
+    try {
+      const rss = `https://www.youtube.com/feeds/videos.xml?channel_id=${id}`;
+      const feedUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rss}`;
+
+      const res = await fetch(feedUrl);
+      const data = await res.json();
+
+      if (!data.items || data.items.length === 0) continue;
+
+      const video = data.items[0];
+
+      // FIXED CHANNEL ICON:
+      // rss2json uses "logo" instead of "image" now
+      const channelImg = data.feed.logo || data.feed.image || "";
+
+      const thumb = video.thumbnail;
+
+      const card = `
+        <a href="${video.link}" target="_blank">
+          <div class="yt-card">
+            <img class="yt-thumb" src="${thumb}">
+            
+            <div class="yt-info">
+              <img class="yt-channel-img" src="${channelImg}">
+              <div>
+                <strong>${video.author}</strong><br>
+                ${video.title}
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+
+      container.innerHTML += card;
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+}
+
+loadFeeds();
+</script>
+
+</body>
+</html>
