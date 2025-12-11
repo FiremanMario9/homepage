@@ -6,11 +6,11 @@ Features:
 
 -Local weather
 
--Latest YouTube videos from:
+-Latest YouTube videos from: (kinda)
 
-Bionic
-Bringus Studios
-Doni Bobes
-Tranium
-ELEVENZ
-MetraByte
+-Bionic
+-Bringus Studios
+-Doni Bobes
+-Tranium
+-ELEVENZ
+-MetraByte
