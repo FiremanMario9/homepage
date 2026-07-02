@@ -87,15 +87,19 @@
 
 <body>
 
-/* ============================
-  Search Bar (Duck Duck Go)
-   ============================ */
-  <div id="search">
-    <form action="https://duckduckgo.com/">
-      <input name="q" placeholder="Search the web..." autofocus>
+<!-- ============================
+     Search Bar (DuckDuckGo)
+     ============================ -->
+<div id="search">
+  <div class="search-container">
+    <img src="duckduckgo.svg" alt="DuckDuckGo Logo" class="ddg-logo">
+
+    <form action="https://duckduckgo.com/" method="get">
+      <input type="text" name="q" placeholder="Search the web..." autofocus>
     </form>
   </div>
-
+</div>
+  
   <!-- WEATHER -->
   <h2>Weather</h2>
   <div id="weather">Loading weather...</div>
