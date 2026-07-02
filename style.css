@@ -13,3 +13,77 @@
 #search form {
     margin: 0;
 }
+   body {
+      font-family: Arial, sans-serif;
+      background: #181818;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 40px;
+    }
+
+    /* Search bar */
+    #search input {
+      width: 50%;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: #2a2a2a;
+      color: white;
+    }
+
+    /* Section headers */
+    h2 {
+      margin-top: 40px;
+      color: #e0e0e0;
+      font-weight: 400;
+    }
+
+    /* Weather */
+    #weather {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    /* YouTube container */
+    #yt-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 40px auto;
+    }
+
+    /* YouTube cards */
+    .yt-card {
+      background: #222;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: transform 0.2s;
+    }
+    .yt-card:hover {
+      transform: translateY(-4px);
+    }
+    .yt-thumb {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .yt-info {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .yt-channel-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+    }
