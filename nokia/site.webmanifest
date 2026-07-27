@@ -1,6 +1,6 @@
 {
-  "name": "Nokia Web Hub",
-  "short_name": "Nokia Web Hub",
+  "name": "Nokia Search",
+  "short_name": "Nokia Search",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
